@@ -1,0 +1,4 @@
+Car Shampoo,12,Good
+Tire Polish,3,Low
+Microfiber Cloth,0,Out of Stock
+Vacuum Filter,5,Good

@@ -1,0 +1,4 @@
+B01,Available
+B02,Occupied
+B03,Maintenance
+B04,Available
