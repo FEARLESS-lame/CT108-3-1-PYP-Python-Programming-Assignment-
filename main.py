@@ -4,7 +4,7 @@ import booking_officer
 import service_staff
 import system_administrator
 import facility_assistant
-import customer
+import Customer
 
 def main_system_menu():
     while True:
@@ -30,7 +30,7 @@ def main_system_menu():
         elif role_choice == "3":
             service_staff.service_staff_menu() # This runs your friend's part!
         elif role_choice == "4":
-            customer.customer_menu()
+            Customer.customer_menu()
         elif role_choice == "5":
             facility_assistant.facility_assistant_menu()
         elif role_choice == "6":
