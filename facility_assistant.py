@@ -186,7 +186,7 @@ def report_issues():
     except Exception as e:
         print(f"Error saving report: {e}")
 
-def facility_assistant_main():
+def facility_assistant_menu():
     """Main loop for the Facility Assistant role."""
     while True:
         display_menu()
@@ -206,4 +206,4 @@ def facility_assistant_main():
 
 # Automatically start the program if this script is run directly
 if __name__ == "__main__":
-    facility_assistant_main()
+    facility_assistant_menu()
