@@ -1,7 +1,13 @@
 # SHINEPRO CAR CARE SERVICE STAFF MODULE
 # This module provides functionalities for service staff to manage vehicle service statuses 
 # this module also generate daily summary reports based on booking data stored in 'bookings.txt'.
+import os
+
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 def service_staff_menu():
+    clear_screen()
     is_running = True
     while is_running == True:
         print("\n==========================================")
@@ -25,6 +31,7 @@ def service_staff_menu():
             print("Invalid input! Please enter 1, 2, or 3.")
 
 def update_vehicle_status():
+    clear_screen()
     data_file = "bookings.txt"
     
     # --- STEP 1: READ CURRENT FILE DATA (With Error Handling) ---
@@ -114,6 +121,7 @@ def update_vehicle_status():
 
 
 def generate_service_report():
+    clear_screen()
     data_file = "bookings.txt"
     
     try:
@@ -149,4 +157,17 @@ def generate_service_report():
                 vacuuming_jobs = vacuuming_jobs + 1
             elif status_value == "Detailing":
                 detailing_jobs = detailing_jobs + 1
-    
+
+                
+    print("\n==========================================")
+    print("       DAILY SERVICE SUMMARY REPORT       ")
+    print("==========================================")
+    print(f"Total Bookings Processed : {total_records}")
+    print(f"Total Jobs Completed     : {completed_jobs}")
+    print("------------------------------------------")
+    print("Breakdown by Service Type:")
+    print(f" - Washing   : {washing_jobs}")
+    print(f" - Polishing : {polishing_jobs}")
+    print(f" - Vacuuming : {vacuuming_jobs}")
+    print(f" - Detailing : {detailing_jobs}")
+    print("==========================================\n")

@@ -1,1 +1,2 @@
 23-05-2026,Equipment Issue,Vacuum B02 has low suction power,Unresolved
+02-03-2007|Delay|It suck|Unresolved

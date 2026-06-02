@@ -1,3 +1,3 @@
-C001|Jason|0168817605|choo932007@gmail.com
-C0|testing|073|testing@testing.com
-C000|Kai|017|kai@gmail.com
+
+
+C001|Choo|0168817695|choo932007@gmail.com

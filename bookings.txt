@@ -1,1 +1,2 @@
-B001|Jason|VBQ7737|Washing|Pending|09/06/2026
+B001|Jason|VBQ7737|Washing|Completed|09/06/2026
+B002|Choo|VBQ7727|Washing|Pending|09/06/2026

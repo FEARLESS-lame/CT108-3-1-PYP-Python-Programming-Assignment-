@@ -1,13 +1,20 @@
-# main.py - SHINEPRO AUTO CARE CENTRAL SYSTEM
-
+# ==========================================
+# CENTRAL ROUTER
+# SYSTEM: ShinePro Auto Care
+# ==========================================
+import os
 import booking_officer
 import service_staff
 import system_administrator
 import facility_assistant
-import Customer
+import customer  # MUST BE LOWERCASE IN YOUR FOLDER TOO
+
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def main_system_menu():
     while True:
+        clear_screen()
         print("\n==========================================")
         print("    WELCOME TO SHINEPRO AUTO CARE SYSTEM  ")
         print("==========================================")
@@ -22,15 +29,14 @@ def main_system_menu():
         
         role_choice = input("Enter your role (1-6): ").strip()
         
-        # 2. Route the user to the correct file's menu function
         if role_choice == "1":
             system_administrator.system_admin_menu()
         elif role_choice == "2":
-            booking_officer.booking_officer_menu() # This runs your part!
+            booking_officer.booking_officer_menu() 
         elif role_choice == "3":
-            service_staff.service_staff_menu() # This runs your friend's part!
+            service_staff.service_staff_menu() 
         elif role_choice == "4":
-            Customer.customer_menu()
+            customer.customer_menu()
         elif role_choice == "5":
             facility_assistant.facility_assistant_menu()
         elif role_choice == "6":
@@ -38,7 +44,7 @@ def main_system_menu():
             break
         else:
             print("Invalid input. Please select a valid role.")
+            input("Press Enter to continue...")
 
-# Start the entire program
 if __name__ == "__main__":
     main_system_menu()

@@ -3,21 +3,30 @@
 # This module handles all customer-related functions for the Car Wash & Service Booking Management System.
 # User can cancel the process at any moment
 # Primary Key for the customer_id is formated for better and more organized storage
+import os 
+
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 CUSTOMER_FILE = "customers.txt" # File to store customer data
 # ==================================================
 # CUSTOMER MENU
 # ==================================================
 def customer_menu():
+    clear_screen()
     CUSTOMER_FILE = "customers.txt" # File to store customer data
     while True:
         # Menu Overview (Available Choices)
-        print("\n===== CUSTOMER MENU =====")
+        print("\n==========================================")
+        print("       SHINEPRO CUSTOMER MENU      ")
+        print("==========================================")
         print("1. Add Customer")
         print("2. View Customers")
         print("3. Search Customer")
         print("4. Update Customer")
         print("5. Delete Customer")
-        print("0. Back")
+        print("6. Back")
+        print("==========================================")
 
         choice = input("Enter choice: ")
         # Connection to each of the sub-module
@@ -31,7 +40,7 @@ def customer_menu():
             update_customer()
         elif choice == "5":
             delete_customer()
-        elif choice == "0":
+        elif choice == "6":
             break
         else:
             print("Invalid choice.")
@@ -39,6 +48,7 @@ def customer_menu():
 # Function: Add Customer to Saved File
 # ==================================================
 def add_customer():
+    clear_screen()
     CUSTOMER_FILE = "customers.txt" # File to store customer data
     try:
         # Get valid customer ID (or cancel anytime)
@@ -112,6 +122,7 @@ def add_customer():
 # Function: View Customers from Saved File
 # ==================================================
 def view_customers():
+    clear_screen()
     CUSTOMER_FILE = "customers.txt" # File to store customer data
     try:
         file = open(CUSTOMER_FILE, "r")
@@ -138,6 +149,7 @@ def view_customers():
 # Function: Search Customer from Saved File
 # ==================================================
 def search_customer():
+    clear_screen()
     CUSTOMER_FILE = "customers.txt" # File to store customer data
     try:
         customer_id = input("Enter Customer ID (or cancel): ").strip()
@@ -175,6 +187,7 @@ def search_customer():
 # Function: Update Customer from Saved File
 # ==================================================
 def update_customer():
+    clear_screen()
     CUSTOMER_FILE = "customers.txt" # File to store customer data
     try:
         customer_id = input("Enter Customer ID (or cancel): ").strip()
@@ -265,6 +278,7 @@ def update_customer():
 # Function: Delete Customer from Saved File
 # ==================================================
 def delete_customer():
+    clear_screen()
     CUSTOMER_FILE = "customers.txt" # File to store customer data
     try:
         customer_id = input("Enter Customer ID (or cancel): ").strip()
@@ -305,6 +319,7 @@ def delete_customer():
 # Function: Check if Customer Exists in Saved File
 # ==================================================
 def customer_exists(customer_id):
+    clear_screen()
     CUSTOMER_FILE = "customers.txt" # File to store customer data
     try:
         file = open(CUSTOMER_FILE, "r")

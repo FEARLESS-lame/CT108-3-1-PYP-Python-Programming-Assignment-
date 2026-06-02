@@ -2,8 +2,13 @@
 # ROLE: FACILITY ASSISTANT
 # SYSTEM: ShinePro Auto Care
 # ==========================================
+import os
+
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def display_menu():
+    clear_screen()
     """Displays the main menu for the Facility Assistant."""
     print("\n" + "="*40)
     print("   SHINEPRO: FACILITY ASSISTANT MENU")
@@ -15,6 +20,7 @@ def display_menu():
     print("="*40)
 
 def prepare_bays():
+    clear_screen()
     """Allows the assistant to view and update washing bay statuses."""
     print("\n--- Prepare Washing Bays ---")
     filename = "bays.txt"
@@ -32,7 +38,7 @@ def prepare_bays():
         print("-" * 30)
         bays = []
         for line in lines:
-            data = line.strip().split(",")
+            data = line.strip().split("|")
             if len(data) == 2:
                 bays.append(data)
                 print(f"{data[0]:<10} | {data[1]}")
@@ -79,6 +85,7 @@ def prepare_bays():
         print(f"An unexpected error occurred: {e}")
 
 def monitor_supplies():
+    clear_screen()
     """Allows the assistant to view and update supply quantities."""
     print("\n--- Monitor Supply Usage ---")
     filename = "supplies.txt"
@@ -95,7 +102,7 @@ def monitor_supplies():
         print("-" * 55)
         supplies = []
         for line in lines:
-            data = line.strip().split(",")
+            data = line.strip().split("|")
             if len(data) == 3:
                 supplies.append(data)
                 print(f"{data[0]:<20} | {data[1]:<10} | {data[2]}")
@@ -144,6 +151,7 @@ def monitor_supplies():
         print(f"An unexpected error occurred: {e}")
 
 def report_issues():
+    clear_screen()
     """Allows the assistant to log issues for the administrator."""
     print("\n--- Report Issues ---")
     filename = "reports.txt"
@@ -181,12 +189,13 @@ def report_issues():
         # Append mode ("a") is used so we don't overwrite existing reports
         with open(filename, "a") as file:
             # Format: Date, IssueType, Description, Status
-            file.write(f"{date},{issue_type},{description},Unresolved\n")
+            file.write(f"{date}|{issue_type}|{description}|Unresolved\n")
         print("\nSuccess: Issue successfully reported to the Administrator.")
     except Exception as e:
         print(f"Error saving report: {e}")
 
 def facility_assistant_menu():
+    clear_screen()
     """Main loop for the Facility Assistant role."""
     while True:
         display_menu()
