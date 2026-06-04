@@ -11,7 +11,7 @@ def system_admin_menu():
 
     while True:
         print("\n================================")
-        print("      SHINEPRO SYSTEM ADMINISTRATOR")
+        print("   SHINEPRO SYSTEM ADMINISTRATOR")
         print("================================")
         print("1. Add Service Package")
         print("2. Update Service Package")
