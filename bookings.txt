@@ -1,3 +1,4 @@
 B001|Jason Tan|VDD1234|Washing|Completed|10/06/2026
 B002|Siti Aminah|WXY5678|Polishing|Completed|12/06/2026
-B003|Ravi Kumar|ABC9999|Detailing|Completed|15/06/2026B004
+B003|Ravi Kumar|ABC9999|Detailing|Washing|15/06/2026
+B004|Jason Tan|VDD1234|Washing|Pending|06/06/2026
