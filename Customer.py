@@ -25,7 +25,7 @@ def customer_menu():
         print("3. Search Customer")
         print("4. Update Customer")
         print("5. Delete Customer")
-        print("6. Back")
+        print("6. Return to Main Menu")
         print("==========================================")
 
         choice = input("Enter choice: ")
@@ -114,8 +114,8 @@ def add_customer():
         # Confirmation message
         print("Customer added successfully.")
 
-    except:
-        print("Error adding customer.")
+    except Exception as e:
+        print("Error adding customer:", e)
 
 
 # ==================================================
@@ -141,8 +141,8 @@ def view_customers():
     # Handle case where customer file does not exist (Currently Should have the File)
     except FileNotFoundError:
         print("Customer file not found.")
-    except:
-        print("Error reading customer file.")
+    except Exception as e:
+        print("Error reading customer file:", e)
 
 
 # ==================================================
@@ -179,8 +179,8 @@ def search_customer():
         if not found:
             print("Customer not found.")
 
-    except:
-        print("Error searching customer.")
+    except Exception as e:
+        print("Error searching customer:", e)
 
 
 # ==================================================
@@ -270,8 +270,8 @@ def update_customer():
         else:
             print("Customer not found.")
 
-    except:
-        print("Error updating customer.")
+    except Exception as e:
+        print("Error updating customer:", e)
 
 
 # ==================================================
@@ -311,15 +311,14 @@ def delete_customer():
             print("Customer deleted successfully.")
         else:
             print("Customer not found.")
-    except:
-        print("Error deleting customer.")
+    except Exception as e:
+        print("Error deleting customer:", e)
 
 
 # ==================================================
 # Function: Check if Customer Exists in Saved File
 # ==================================================
 def customer_exists(customer_id):
-    clear_screen()
     CUSTOMER_FILE = "customers.txt" # File to store customer data
     try:
         file = open(CUSTOMER_FILE, "r")
@@ -331,7 +330,7 @@ def customer_exists(customer_id):
                 return True
         file.close()
         return False
-    except:
+    except FileNotFoundError:
         return False
 
 

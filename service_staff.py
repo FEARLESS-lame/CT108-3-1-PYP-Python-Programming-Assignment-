@@ -3,8 +3,96 @@
 # this module also generate daily summary reports based on booking data stored in 'bookings.txt'.
 import os
 
+# ----- File name constants -----
+BOOKINGS_FILE = "bookings.txt"
+SERVICES_FILE = "services.txt"
+PAYMENTS_FILE = "payments.txt"
+
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
+
+
+# ==================================================
+# Helper: look up a service price by package name
+# Reads services.txt (format: ServiceID|Name|Price|Slots)
+# Returns the price as a float, or None if not found.
+# ==================================================
+def get_service_price(package_name):
+    try:
+        file = open(SERVICES_FILE, "r")
+        for line in file:
+            data = line.strip().split("|")
+            if len(data) >= 3 and data[1] == package_name:
+                file.close()
+                try:
+                    return float(data[2])
+                except ValueError:
+                    return None
+        file.close()
+        return None
+    except FileNotFoundError:
+        return None
+
+
+# ==================================================
+# Helper: check if a booking already has a payment
+# Reads payments.txt (format: PaymentID|Amount|BookingID|Status)
+# Returns True if a payment for this booking already exists.
+# ==================================================
+def payment_already_exists(booking_id):
+    try:
+        file = open(PAYMENTS_FILE, "r")
+        for line in file:
+            data = line.strip().split("|")
+            if len(data) >= 3 and data[2] == booking_id:
+                file.close()
+                return True
+        file.close()
+        return False
+    except FileNotFoundError:
+        return False
+
+
+# ==================================================
+# Helper: record a payment for a completed booking
+# Auto-generates the next payment ID (P001, P002, ...)
+# and pulls the price from services.txt by package name.
+# ==================================================
+def record_payment(booking_id, package_name):
+    # Don't charge twice for the same booking
+    if payment_already_exists(booking_id):
+        print("Note: Payment for this booking already exists. No new charge made.")
+        return
+
+    price = get_service_price(package_name)
+    if price is None:
+        print(f"Warning: Could not find a price for '{package_name}' in services.txt.")
+        print("         Payment was NOT recorded. Please ask the Administrator to add this service.")
+        return
+
+    # Auto-generate next payment ID by reading the last record
+    payment_id = "P001"
+    try:
+        file = open(PAYMENTS_FILE, "r")
+        lines = file.readlines()
+        file.close()
+        # Use the last non-empty line to find the highest ID
+        existing = [ln for ln in lines if ln.strip() != ""]
+        if len(existing) > 0:
+            last_id = existing[-1].split("|")[0].strip()
+            if last_id.startswith("P") and last_id[1:].isdigit():
+                payment_id = f"P{int(last_id[1:]) + 1:03d}"
+    except FileNotFoundError:
+        pass  # File will be created on first write
+
+    # Format: PaymentID|Amount|BookingID|Status
+    try:
+        file = open(PAYMENTS_FILE, "a")
+        file.write(f"{payment_id}|{price:.2f}|{booking_id}|Paid\n")
+        file.close()
+        print(f"Payment recorded: {payment_id} | RM {price:.2f} | Booking {booking_id} | Paid")
+    except Exception as e:
+        print(f"Error saving payment: {e}")
 
 def service_staff_menu():
     clear_screen()
@@ -54,6 +142,9 @@ def update_vehicle_status():
     for line in all_bookings:
         # Delimiter used is '|'. Format: ID|Name|Plate|Package|Status|Date
         record = line.strip().split("|")
+        # Skip blank or malformed lines so we never crash on a bad row
+        if len(record) < 6:
+            continue
         booking_id = record[0]
         car_plate = record[2]
         current_status = record[4]
@@ -74,7 +165,12 @@ def update_vehicle_status():
 
     for line in all_bookings:
         record = line.strip().split("|")
-        
+
+        # Preserve blank/malformed lines as-is so they aren't lost on rewrite
+        if len(record) < 6:
+            updated_lines_list.append(line)
+            continue
+
         # Check if this line matches the requested Booking ID
         if record[0] == target_id:
             record_found = True
@@ -107,6 +203,11 @@ def update_vehicle_status():
             modified_line = record[0] + "|" + record[1] + "|" + record[2] + "|" + record[3] + "|" + assigned_status + "|" + record[5] + "\n"
             updated_lines_list.append(modified_line)
             print("Success: Status successfully updated to '" + assigned_status + "'.")
+
+            # When a job is Completed, automatically record the payment.
+            # Price is pulled from services.txt by the package name (record[3]).
+            if assigned_status == "Completed":
+                record_payment(record[0], record[3])
         else:
             # If it's not the chosen vehicle, keep the original line intact
             updated_lines_list.append(line)
@@ -171,3 +272,7 @@ def generate_service_report():
     print(f" - Vacuuming : {vacuuming_jobs}")
     print(f" - Detailing : {detailing_jobs}")
     print("==========================================\n")
+
+# Code of Individual Testing
+if __name__ == "__main__":
+    service_staff_menu()

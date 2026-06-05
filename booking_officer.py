@@ -65,8 +65,9 @@ def register_customer():
     name = input("Enter Customer Name: ").strip()
     phone = input("Enter Phone Number: ").strip()
     
-    if not phone.isdigit():
-        print("Error: Phone number must contain only numbers!")
+    # Allow an optional leading '+' (international format), matching customer.py rules
+    if not phone.replace("+", "").isdigit():
+        print("Error: Phone number must contain only numbers or a '+' symbol!")
         input("Press Enter to return...")
         return
         
@@ -127,7 +128,7 @@ def make_booking():
         
         all_maintenance = True
         for line in bay_lines:
-            data = line.strip().split(",")
+            data = line.strip().split("|")
             if len(data) == 2 and data[1].strip() != "Maintenance":
                 all_maintenance = False
                 break

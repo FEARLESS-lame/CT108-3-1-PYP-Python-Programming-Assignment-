@@ -1,0 +1,4 @@
+S01|Washing|25.00|10
+S02|Polishing|60.00|5
+S03|Vacuuming|20.00|8
+S04|Detailing|150.00|3

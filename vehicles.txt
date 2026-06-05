@@ -1,4 +1,3 @@
-
-
-
-C001|VBQ7727|Kia|Rio
+C001|VDD1234|Honda|Civic
+C002|WXY5678|Toyota|Vios
+C003|ABC9999|Perodua|Myvi

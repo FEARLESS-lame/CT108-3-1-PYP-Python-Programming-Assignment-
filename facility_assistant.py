@@ -74,10 +74,10 @@ def prepare_bays():
             if not found:
                 print("Error: Bay ID not found.")
             else:
-                # Write back to file
+                # Write back to file (use '|' to stay consistent with the rest of the system)
                 with open(filename, "w") as file:
                     for b in bays:
-                        file.write(f"{b[0]},{b[1]}\n")
+                        file.write(f"{b[0]}|{b[1]}\n")
                         
     except FileNotFoundError:
         print(f"Error: The file '{filename}' was not found. Please ensure it exists.")
@@ -140,10 +140,10 @@ def monitor_supplies():
             if not found:
                 print("Error: Item not found.")
             else:
-                # Write back to file
+                # Write back to file (use '|' to stay consistent with the rest of the system)
                 with open(filename, "w") as file:
                     for s in supplies:
-                        file.write(f"{s[0]},{s[1]},{s[2]}\n")
+                        file.write(f"{s[0]}|{s[1]}|{s[2]}\n")
 
     except FileNotFoundError:
         print(f"Error: The file '{filename}' was not found.")
