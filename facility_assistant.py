@@ -5,7 +5,7 @@
 import os
 
 def clear_screen():
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system('cls' if os.name == 'nt' else 'clear') # Clear the console screen for better readability
 
 def display_menu():
     clear_screen()
@@ -39,8 +39,8 @@ def prepare_bays():
         bays = []
         for line in lines:
             data = line.strip().split("|")
-            if len(data) == 2:
-                bays.append(data)
+            if len(data) == 2: #check to ensure we have both Bay ID and Status
+                bays.append(data) #add mini list into main bay list
                 print(f"{data[0]:<10} | {data[1]}")
 
         # Update a bay
@@ -51,7 +51,7 @@ def prepare_bays():
             
             for i in range(len(bays)):
                 if bays[i][0] == bay_id:
-                    found = True
+                    found = True #checks if bay ID exists in the list
                     print("Select new status:")
                     print("1. Available")
                     print("2. Occupied")
@@ -77,7 +77,7 @@ def prepare_bays():
                 # Write back to file (use '|' to stay consistent with the rest of the system)
                 with open(filename, "w") as file:
                     for b in bays:
-                        file.write(f"{b[0]}|{b[1]}\n")
+                        file.write(f"{b[0]}|{b[1]}\n") #b[0] is Bay ID, b[1] is Status
                         
     except FileNotFoundError:
         print(f"Error: The file '{filename}' was not found. Please ensure it exists.")
@@ -121,7 +121,7 @@ def monitor_supplies():
                             print("Error: Quantity cannot be negative.")
                             return
                         
-                        supplies[i][1] = str(new_qty)
+                        supplies[i][1] = str(new_qty) #ensure quantity is stored as a string for file writing
                         
                         # Auto-update status based on quantity
                         if new_qty == 0:
@@ -143,7 +143,7 @@ def monitor_supplies():
                 # Write back to file (use '|' to stay consistent with the rest of the system)
                 with open(filename, "w") as file:
                     for s in supplies:
-                        file.write(f"{s[0]}|{s[1]}|{s[2]}\n")
+                        file.write(f"{s[0]}|{s[1]}|{s[2]}\n") #as mentioned quantity is stored as string for file writing
 
     except FileNotFoundError:
         print(f"Error: The file '{filename}' was not found.")
